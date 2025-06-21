@@ -1,0 +1,13 @@
+
+
+CREATE DATABASE solucao4;
+
+CREATE TABLE visitante (
+	id SERIAL PRIMARY KEY,
+	nome VARCHAR(100) NOT NULL,
+	motivo TEXT NOT NULL,
+	horario_entrada TIMESTAMP NOT NULL,
+	horario_saida TIMESTAMP,
+	aprovado BOOLEAN NOT NULL DEFAULT FALSE
+);
+

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.36.1">
+  <bpmn:collaboration id="Collaboration_1uwtc4w">
+    <bpmn:participant id="Participant_12f6o3g" name="Empresa" processRef="ProcessoSolicitacaoFerias" />
+  </bpmn:collaboration>
+  <bpmn:process id="ProcessoSolicitacaoFerias" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_145h52n">
+      <bpmn:lane id="Lane_1mknz6e" name="Colaaborador">
+        <bpmn:flowNodeRef>StartEvent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>PreencherSolicitacao</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0qwf4sw" name="Gestor">
+        <bpmn:flowNodeRef>AnalisarSolicitacao</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GatewayAprovado</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEventRejeitado</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_049hw4h" name="RH">
+        <bpmn:flowNodeRef>AgendarFerias</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ConfirmarDatas</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEventAprovado</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent" name="Desejo solicitar férias">
+      <bpmn:outgoing>Flow1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="PreencherSolicitacao" name="Preencher solicitação de férias">
+      <bpmn:incoming>Flow1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zo7z2l</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow1" sourceRef="StartEvent" targetRef="PreencherSolicitacao" />
+    <bpmn:sequenceFlow id="Flow_0zo7z2l" sourceRef="PreencherSolicitacao" targetRef="AnalisarSolicitacao" />
+    <bpmn:task id="AnalisarSolicitacao" name="Analisar solicitação de férias">
+      <bpmn:incoming>Flow_0zo7z2l</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ijva14</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="GatewayAprovado" name="Aprovado?">
+      <bpmn:incoming>Flow_0ijva14</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fyw650</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0mmc5x6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEventRejeitado" name="Solicitação de férias rejeitada">
+      <bpmn:incoming>Flow_0fyw650</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0mmc5x6" name="Aprovado" sourceRef="GatewayAprovado" targetRef="AgendarFerias" />
+    <bpmn:sequenceFlow id="Flow_0ijva14" sourceRef="AnalisarSolicitacao" targetRef="GatewayAprovado" />
+    <bpmn:sequenceFlow id="Flow_0fyw650" name="Rejeitado" sourceRef="GatewayAprovado" targetRef="EndEventRejeitado" />
+    <bpmn:task id="AgendarFerias" name="Agendar férias no sistema">
+      <bpmn:incoming>Flow_0mmc5x6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nkf5ts</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="ConfirmarDatas" name="Confirmar datas com colaborador">
+      <bpmn:incoming>Flow_1nkf5ts</bpmn:incoming>
+      <bpmn:outgoing>Flow_1npvkl5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEventAprovado" name="Férias agendadas e confirmadas">
+      <bpmn:incoming>Flow_1npvkl5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1nkf5ts" sourceRef="AgendarFerias" targetRef="ConfirmarDatas" />
+    <bpmn:sequenceFlow id="Flow_1npvkl5" sourceRef="ConfirmarDatas" targetRef="EndEventAprovado" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1uwtc4w">
+      <bpmndi:BPMNShape id="Participant_12f6o3g_di" bpmnElement="Participant_12f6o3g" isHorizontal="true">
+        <dc:Bounds x="118" y="62" width="1022" height="478" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1mknz6e_di" bpmnElement="Lane_1mknz6e" isHorizontal="true">
+        <dc:Bounds x="148" y="62" width="992" height="163" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0qwf4sw_di" bpmnElement="Lane_0qwf4sw" isHorizontal="true">
+        <dc:Bounds x="148" y="225" width="992" height="163" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_049hw4h_di" bpmnElement="Lane_049hw4h" isHorizontal="true">
+        <dc:Bounds x="148" y="388" width="992" height="152" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_StartEvent" bpmnElement="StartEvent">
+        <dc:Bounds x="210" y="122" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="191" y="159" width="76" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_PreencherSolicitacao" bpmnElement="PreencherSolicitacao">
+        <dc:Bounds x="310" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_AnalisarSolicitacao" bpmnElement="AnalisarSolicitacao">
+        <dc:Bounds x="460" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GatewayAprovado" bpmnElement="GatewayAprovado" isMarkerVisible="true">
+        <dc:Bounds x="625" y="275" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="624" y="251" width="53" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_EndEventRejeitado" bpmnElement="EndEventRejeitado">
+        <dc:Bounds x="772" y="282" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="756" y="320" width="72" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_AgendarFerias" bpmnElement="AgendarFerias">
+        <dc:Bounds x="710" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ConfirmarDatas" bpmnElement="ConfirmarDatas">
+        <dc:Bounds x="890" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_EndEventAprovado" bpmnElement="EndEventAprovado">
+        <dc:Bounds x="1052" y="442" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1028" y="482" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow1_di" bpmnElement="Flow1">
+        <di:waypoint x="246" y="140" />
+        <di:waypoint x="310" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zo7z2l_di" bpmnElement="Flow_0zo7z2l">
+        <di:waypoint x="410" y="140" />
+        <di:waypoint x="430" y="140" />
+        <di:waypoint x="430" y="300" />
+        <di:waypoint x="460" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mmc5x6_di" bpmnElement="Flow_0mmc5x6">
+        <di:waypoint x="650" y="325" />
+        <di:waypoint x="650" y="460" />
+        <di:waypoint x="710" y="460" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="656" y="353" width="47" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ijva14_di" bpmnElement="Flow_0ijva14">
+        <di:waypoint x="560" y="300" />
+        <di:waypoint x="625" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fyw650_di" bpmnElement="Flow_0fyw650">
+        <di:waypoint x="675" y="300" />
+        <di:waypoint x="772" y="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="700" y="282" width="47" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nkf5ts_di" bpmnElement="Flow_1nkf5ts">
+        <di:waypoint x="810" y="460" />
+        <di:waypoint x="890" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1npvkl5_di" bpmnElement="Flow_1npvkl5">
+        <di:waypoint x="990" y="460" />
+        <di:waypoint x="1052" y="460" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

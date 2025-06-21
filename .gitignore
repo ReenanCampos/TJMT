@@ -1,0 +1,18 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Build
+out/
+target/
+*.class
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Maven Wrapper (opcional)
+.mvn/
