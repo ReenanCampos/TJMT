@@ -8,7 +8,7 @@ Este repositório contém a refatoração de um código responsável por realiza
 ## 🚨 Código refatorado
 
  - Abrir o projeto na pasta [Solucao](Solucao) em uma IDE (este foi criado em IntelliJ, sem maven, projeto java puro)
- - Executar a classe [app.Main](Solucao\src\app\Main.java)
+ - Executar a classe [app.Main](Solucao/src/app/Main.java)
 
 ## 📄 Descrição do Problema
 
