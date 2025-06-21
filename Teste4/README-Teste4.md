@@ -31,7 +31,7 @@ Arquivos:
 
 ## 🚨(4.4) Implementação da solução como bônus
 
- - Abrir o projeto na pasta [Solução](Solucao) em uma IDE (este foi criado em IntelliJ)
+ - Abrir o arquivo [pom.xml](Solucao\controle-visitantes-java\pom.xml) na pasta Solucao/controle-visitantes-java em uma IDE (este foi criado em IntelliJ), carregue como **Projeto**
  - Criar database e tabela com o [schema.sql](Solucao\controle-visitantes-java\database\schema.sql)
  - Executar a classe [Main](Solucao\controle-visitantes-java\src\main\java\com\projeto\app\Main.java)
 
